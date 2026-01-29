@@ -1,0 +1,32 @@
+.couple-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.person {
+  text-align: center;
+}
+
+.person-parents {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: 8px;
+}
+
+.person-name {
+  font-size: 1.25rem;
+}
+
+.person-name .role {
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  margin-right: 8px;
+}
+
+.couple-divider {
+  width: 40px;
+  height: 1px;
+  background-color: var(--color-secondary);
+  margin: 0 auto;
+}

@@ -1,0 +1,66 @@
+.calendar-date-text {
+  font-size: 1.125rem;
+  margin-bottom: 32px;
+  color: var(--color-text);
+}
+
+.calendar-grid {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.calendar-month {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-secondary);
+  margin-bottom: 12px;
+}
+
+.calendar-header span {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.calendar-header .sunday {
+  color: #c96a6a;
+}
+
+.calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+
+.calendar-day.sunday {
+  color: #c96a6a;
+}
+
+.calendar-day.wedding-day {
+  color: white;
+}
+
+.calendar-day.wedding-day span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+}

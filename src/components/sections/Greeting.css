@@ -1,0 +1,9 @@
+.greeting-message {
+  font-size: 1rem;
+  line-height: 2;
+  color: var(--color-text);
+}
+
+.greeting-message p {
+  margin: 0;
+}
