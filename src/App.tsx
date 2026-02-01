@@ -7,6 +7,7 @@ import Location from './components/sections/Location';
 import Gallery from './components/sections/Gallery';
 import Account from './components/sections/Account';
 import Contact from './components/sections/Contact';
+import Guestbook from './components/sections/Guestbook';
 import NoticeDialog from './components/NoticeDialog';
 import MusicPlayer from './components/MusicPlayer';
 import { weddingData } from './data/weddingData';
@@ -31,6 +32,7 @@ function App() {
       <Gallery images={gallery} />
       <Account accounts={accounts} />
       <Contact groom={groom} bride={bride} />
+      <Guestbook />
       <footer className="section" style={{ padding: '40px 24px' }}>
         <p style={{ fontSize: '0.75rem', color: 'var(--color-text-light)' }}>
           Made with love
