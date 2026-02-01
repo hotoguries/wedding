@@ -82,6 +82,68 @@
   margin-bottom: 8px;
 }
 
+.message-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.message-delete-btn {
+  font-size: 0.7rem;
+  color: var(--color-text-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.message-delete-btn:hover {
+  color: #e74c3c;
+}
+
+.delete-confirm {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-secondary);
+}
+
+.delete-password-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: inherit;
+}
+
+.delete-password-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.delete-confirm-btn,
+.delete-cancel-btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.delete-confirm-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+}
+
+.delete-cancel-btn {
+  background-color: white;
+  color: var(--color-text);
+  border: 1px solid var(--color-secondary);
+}
+
 .message-name {
   font-weight: 500;
   font-size: 0.9rem;
