@@ -12,12 +12,8 @@ const ACCOUNTS_URL = `${DB}/accounts.json`;
 
 export default function Account({ accounts }: AccountProps) {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  // 기본으로 펼쳐진 상태 (버튼으로 접을 수도 있음)
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
-    '신랑측 (계좌번호)': true,
-    '신부측 (계좌번호)': true,
-  });
   const [remote, setRemote] = useState<AccountInfo[] | null>(null);
+  const [tab, setTab] = useState<'groom' | 'bride'>('groom');
 
   useEffect(() => {
     fetch(ACCOUNTS_URL)
@@ -37,10 +33,6 @@ export default function Account({ accounts }: AccountProps) {
   const groomAccounts = list.filter((a) => a.relation.includes('신랑'));
   const brideAccounts = list.filter((a) => a.relation.includes('신부'));
 
-  const toggleGroup = (title: string) => {
-    setOpenGroups((prev) => ({ ...prev, [title]: !prev[title] }));
-  };
-
   const handleCopy = async (account: AccountInfo, index: number) => {
     try {
       await navigator.clipboard.writeText(account.accountNumber);
@@ -51,60 +43,69 @@ export default function Account({ accounts }: AccountProps) {
     }
   };
 
-  const renderAccounts = (title: string, accounts: AccountInfo[], startIndex: number) => {
-    if (accounts.length === 0) return null;
-    const isOpen = !!openGroups[title];
-    return (
-      <div className="account-group">
-        <button
-          type="button"
-          className={`account-group-toggle ${isOpen ? 'open' : ''}`}
-          onClick={() => toggleGroup(title)}
-          aria-expanded={isOpen}
-        >
-          <span className="account-group-title">{title}</span>
-          <span className="account-group-arrow" aria-hidden="true">▾</span>
-        </button>
-        {isOpen && (
-          <div className="account-group-body">
-            {accounts.map((account, i) => {
-              const index = startIndex + i;
-              return (
-                <div key={index} className="account-item">
-                  <div className="account-info">
-                    <p className="account-relation">{account.relation} 계좌번호</p>
-                    <p className="account-holder">{account.holder}</p>
-                    <p className="account-number">
-                      {account.bank} {account.accountNumber}
-                    </p>
-                  </div>
-                  <button
-                    className={`copy-button ${copiedIndex === index ? 'copied' : ''}`}
-                    onClick={() => handleCopy(account, index)}
-                  >
-                    {copiedIndex === index ? '복사됨' : '복사'}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    );
-  };
+  const current = tab === 'groom' ? groomAccounts : brideAccounts;
+  const offset = tab === 'groom' ? 0 : groomAccounts.length;
 
   return (
     <section className="section account">
       <p className="section-title">account</p>
       <p className="account-message">축하의 마음을 전해주세요</p>
+
       {list.length === 0 ? (
         <p className="account-pending">
           마음 전하실 곳은 예식이 가까워지면 안내해 드리겠습니다.
         </p>
       ) : (
         <>
-          {renderAccounts('신랑측 (계좌번호)', groomAccounts, 0)}
-          {renderAccounts('신부측 (계좌번호)', brideAccounts, groomAccounts.length)}
+          <div className="account-tabs">
+            <button
+              type="button"
+              className={`account-tab ${tab === 'groom' ? 'active' : ''}`}
+              onClick={() => setTab('groom')}
+            >
+              신랑측에게
+            </button>
+            <button
+              type="button"
+              className={`account-tab ${tab === 'bride' ? 'active' : ''}`}
+              onClick={() => setTab('bride')}
+            >
+              신부측에게
+            </button>
+          </div>
+
+          <div className="account-list">
+            {current.length === 0 ? (
+              <p className="account-pending">등록된 계좌가 없습니다.</p>
+            ) : (
+              current.map((account, i) => {
+                const index = offset + i;
+                return (
+                  <div key={index} className="account-card">
+                    <div className="account-card-top">
+                      <div className="account-card-name">
+                        <span className="account-card-relation">{account.relation}</span>
+                        <span className="account-card-holder">{account.holder}</span>
+                      </div>
+                      <span className="account-card-number">
+                        {account.bank} {account.accountNumber}
+                      </span>
+                    </div>
+                    <button
+                      className={`copy-button ${copiedIndex === index ? 'copied' : ''}`}
+                      onClick={() => handleCopy(account, index)}
+                    >
+                      <span>{copiedIndex === index ? '복사되었습니다' : '계좌번호 복사하기'}</span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="9" y="9" width="11" height="11" rx="2" />
+                        <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+                      </svg>
+                    </button>
+                  </div>
+                );
+              })
+            )}
+          </div>
         </>
       )}
     </section>
