@@ -12,7 +12,11 @@ const ACCOUNTS_URL = `${DB}/accounts.json`;
 
 export default function Account({ accounts }: AccountProps) {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
+  // 기본으로 펼쳐진 상태 (버튼으로 접을 수도 있음)
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
+    신랑측: true,
+    신부측: true,
+  });
   const [remote, setRemote] = useState<AccountInfo[] | null>(null);
 
   useEffect(() => {
