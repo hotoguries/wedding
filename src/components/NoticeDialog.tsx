@@ -7,10 +7,17 @@ interface NoticeDialogProps {
   onClose?: () => void;
 }
 
-const STORAGE_KEY = 'wedding-notice-seen';
+// 내용이 바뀌면 키도 바뀌어, 이전에 본 사람에게도 새 안내가 다시 뜬다.
+function storageKeyFor(notice: NoticeInfo): string {
+  const s = `${notice.title || ''}|${notice.message || ''}`;
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+  return `wedding-notice-seen-${(h >>> 0).toString(36)}`;
+}
 
 export default function NoticeDialog({ notice, onClose }: NoticeDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const storageKey = storageKeyFor(notice);
 
   useEffect(() => {
     if (!notice.enabled) {
@@ -18,17 +25,17 @@ export default function NoticeDialog({ notice, onClose }: NoticeDialogProps) {
       return;
     }
 
-    const hasSeen = localStorage.getItem(STORAGE_KEY);
+    const hasSeen = localStorage.getItem(storageKey);
     if (!hasSeen) {
       setIsOpen(true);
     } else {
       onClose?.();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [notice.enabled]);
+  }, [storageKey, notice.enabled]);
 
   const handleClose = () => {
-    localStorage.setItem(STORAGE_KEY, 'true');
+    localStorage.setItem(storageKey, 'true');
     setIsOpen(false);
     onClose?.();
   };

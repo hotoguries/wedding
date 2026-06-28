@@ -12,9 +12,29 @@ import MusicPlayer from './components/MusicPlayer';
 import { fireConfetti } from './lib/confetti';
 import { weddingData } from './data/weddingData';
 
+// 안내 팝업도 git/소스에 고정하지 않고 Firebase에서 런타임에 불러온다(1주일 전 콘솔에서 결정).
+const NOTICE_URL =
+  'https://wedding-guestbook-6c9e3-default-rtdb.asia-southeast1.firebasedatabase.app/notice.json';
+
 function App() {
-  const { mainImage, groom, bride, date, time, venue, gallery, accounts, notice, music } = weddingData;
+  const { mainImage, groom, bride, date, time, venue, gallery, accounts, notice: initialNotice, music } = weddingData;
   const [celebrate, setCelebrate] = useState(false);
+  const [notice, setNotice] = useState(initialNotice);
+  const [noticeLoaded, setNoticeLoaded] = useState(false);
+
+  // Firebase에 /notice 값이 있으면 그것으로 덮어쓴다(없거나 실패하면 코드 기본값 사용).
+  useEffect(() => {
+    fetch(NOTICE_URL)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && typeof data === 'object') {
+          setNotice({ ...initialNotice, ...data } as typeof initialNotice);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setNoticeLoaded(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // 첫 진입(안내창 닫은 직후) 폭죽 연출
   useEffect(() => {
@@ -30,7 +50,9 @@ function App() {
 
   return (
     <div className="wedding-app">
-      {notice && <NoticeDialog notice={notice} onClose={() => setCelebrate(true)} />}
+      {noticeLoaded && notice && (
+        <NoticeDialog notice={notice} onClose={() => setCelebrate(true)} />
+      )}
       {music && <MusicPlayer music={music} />}
       <Hero
         groomName={groom.name}
