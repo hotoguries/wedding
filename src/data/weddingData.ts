@@ -43,7 +43,6 @@ export const weddingData: WeddingInfo = {
     '/wedding/images/gallery/mm_11.jpg',
     '/wedding/images/gallery/mm_12.jpg',
     '/wedding/images/gallery/mm_13.jpg',
-    '/wedding/images/gallery/mm_14.jpg',
     '/wedding/images/gallery/mm_15.jpg',
     '/wedding/images/gallery/mm_16.jpg',
     '/wedding/images/gallery/mm_17.jpg',
