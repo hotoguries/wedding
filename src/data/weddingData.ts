@@ -72,7 +72,7 @@ export const weddingData: WeddingInfo = {
     image: '', // 약도 이미지 경로 (예: '/images/map.jpg')
   },
   music: {
-    enabled: false, // TODO: public/music/bgm.mp3 파일 추가 후 true 로 변경
+    enabled: true,
     src: '/wedding/music/bgm.mp3', // 음악 파일 경로
     title: '배경음악',
   },
