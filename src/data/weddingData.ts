@@ -62,38 +62,10 @@ export const weddingData: WeddingInfo = {
     '/wedding/images/gallery/mm_30.jpg',
     '/wedding/images/gallery/mm_s.jpg',
   ],
-  accounts: [
-    {
-      bank: '신한은행',
-      accountNumber: '110-431-783910',
-      holder: '오승환',
-      relation: '신랑',
-    },
-    {
-      bank: '국민은행',
-      accountNumber: '123-45-6789012',
-      holder: '오덕석',
-      relation: '신랑 아버지',
-    },
-    {
-      bank: '우리은행',
-      accountNumber: '1002-123-456789',
-      holder: '양정숙',
-      relation: '신랑 어머니',
-    },
-    {
-      bank: '국민은행',
-      accountNumber: '224-601-04-050442',
-      holder: '송병연',
-      relation: '신부',
-    },
-    {
-      bank: '카카오뱅크',
-      accountNumber: '3333-12-3456789',
-      holder: '박찬선',
-      relation: '신부 어머니',
-    },
-  ],
+  // 실제 계좌번호는 git 히스토리에 남기지 않기 위해 비워둔다.
+  // 예식 1주일 전 Firebase Realtime DB의 /accounts 경로에 입력하면 런타임에 표시되고,
+  // 예식 후 콘솔에서 삭제하면 사이트에서도 사라진다. (Account.tsx 참고)
+  accounts: [],
   notice: {
     enabled: true,
     title: '안내 말씀',

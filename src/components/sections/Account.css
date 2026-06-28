@@ -4,6 +4,12 @@
   margin-bottom: 32px;
 }
 
+.account-pending {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+}
+
 .account-group {
   margin-bottom: 24px;
 }

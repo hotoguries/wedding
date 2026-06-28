@@ -4,11 +4,12 @@ interface GreetingProps {
   message?: string;
 }
 
-const defaultMessage = `서로 다른 길을 걸어온 두 사람이
-이제 같은 길을 함께 걸어가려 합니다.
+const defaultMessage = `있는 그대로 사랑하고
+서로의 존재에 감사하며
+변함없이 서로를 아끼며 살아가겠습니다.
 
-귀한 걸음 하시어
-축복해 주시면 감사하겠습니다.`;
+서로를 향한 사랑과 믿음으로
+하나가 되는 자리에 함께해 주세요.`;
 
 export default function Greeting({ message = defaultMessage }: GreetingProps) {
   return (

@@ -49,13 +49,15 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  touch-action: none;
+  overscroll-behavior: contain;
 }
 
 .modal-image {
   max-width: 92%;
   max-height: 82vh;
   object-fit: contain;
-  touch-action: pan-y;
+  touch-action: none;
   user-select: none;
   -webkit-user-drag: none;
 }

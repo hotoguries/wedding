@@ -20,6 +20,16 @@ export default function Gallery({ images }: GalleryProps) {
       prev !== null ? (prev + 1) % images.length : null
     );
 
+  // 모달 열려 있는 동안 배경 스크롤 잠금
+  useEffect(() => {
+    if (selectedIndex === null) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [selectedIndex]);
+
   // 키보드 화살표 / ESC 지원 (PC)
   useEffect(() => {
     if (selectedIndex === null) return;
