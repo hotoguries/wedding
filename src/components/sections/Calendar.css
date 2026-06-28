@@ -1,3 +1,8 @@
+/* 하단 축하 버튼이 가운데처럼 보이도록 섹션 아래 여백 축소 */
+.section.calendar {
+  padding-bottom: 32px;
+}
+
 .calendar-date-text {
   font-size: 1.125rem;
   margin-bottom: 32px;
@@ -65,13 +70,51 @@
   border-radius: 50%;
 }
 
-.dday {
-  margin-top: 28px;
-  padding-top: 24px;
-  border-top: 1px solid var(--color-secondary);
+.countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
 }
 
-.dday-text {
+.countdown-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+}
+
+.countdown-num {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.countdown-label {
+  font-size: 0.6875rem;
+  color: var(--color-text-light);
+  margin-top: 4px;
+}
+
+.countdown-colon {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-secondary);
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.countdown-headline {
   font-size: 1rem;
   color: var(--color-text);
   line-height: 1.6;
@@ -83,7 +126,6 @@
 
 .dday-count {
   display: inline-block;
-  font-size: 1.125rem;
   font-weight: 600;
   color: var(--color-primary);
 }

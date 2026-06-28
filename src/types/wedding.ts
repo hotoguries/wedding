@@ -23,6 +23,7 @@ export interface VenueInfo {
   hall: string;
   address: string;
   mapUrl?: string;
+  mapImage?: string;
   lat?: number;
   lng?: number;
   transport?: {

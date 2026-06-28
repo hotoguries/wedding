@@ -51,42 +51,41 @@
   z-index: 1000;
 }
 
-.gallery-modal > img {
-  max-width: 90%;
-  max-height: 80vh;
+.modal-image {
+  max-width: 92%;
+  max-height: 82vh;
   object-fit: contain;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .modal-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 2rem;
-  color: white;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.55);
   background: none;
   border: none;
   cursor: pointer;
+  transition: color 0.2s;
 }
 
-.modal-nav {
+.modal-close:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.modal-counter {
   position: absolute;
-  bottom: 40px;
-  display: flex;
-  gap: 40px;
-}
-
-.modal-nav button {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  font-size: 1.25rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.modal-nav button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
 }

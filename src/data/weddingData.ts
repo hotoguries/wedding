@@ -20,6 +20,7 @@ export const weddingData: WeddingInfo = {
     name: '월드컵 컨벤션',
     hall: '임페리얼 볼룸홀',
     address: '서울특별시 마포구 월드컵로 240 월드컵경기장 서측 2층',
+    mapImage: '/wedding/images/map.jpg', // 네이버 지도 스크린샷
     lat: 37.5683,
     lng: 126.8974,
     transport: {
@@ -56,6 +57,9 @@ export const weddingData: WeddingInfo = {
     '/wedding/images/gallery/mm_25.jpg',
     '/wedding/images/gallery/mm_26.jpg',
     '/wedding/images/gallery/mm_27.jpg',
+    '/wedding/images/gallery/mm_28.jpg',
+    '/wedding/images/gallery/mm_29.jpg',
+    '/wedding/images/gallery/mm_30.jpg',
     '/wedding/images/gallery/mm_s.jpg',
   ],
   accounts: [
@@ -82,12 +86,6 @@ export const weddingData: WeddingInfo = {
       accountNumber: '224-601-04-050442',
       holder: '송병연',
       relation: '신부',
-    },
-    {
-      bank: '농협은행',
-      accountNumber: '123-4567-8901-23',
-      holder: '송창윤',
-      relation: '신부 아버지',
     },
     {
       bank: '카카오뱅크',

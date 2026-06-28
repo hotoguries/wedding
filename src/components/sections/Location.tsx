@@ -6,23 +6,35 @@ interface LocationProps {
 }
 
 export default function Location({ venue }: LocationProps) {
-  // 정확한 좌표로 지도 앱 열기 (주소 검색이 아닌 위치 핀)
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // 모바일: 지도 앱 우선 실행, 설치돼 있지 않으면 웹으로 폴백. PC: 웹으로 열기.
+  const openMap = (appUrl: string, webUrl: string) => {
+    if (!isMobile) {
+      window.open(webUrl, '_blank');
+      return;
+    }
+    let switched = false;
+    const onHide = () => {
+      switched = true;
+    };
+    document.addEventListener('visibilitychange', onHide);
+    window.location.href = appUrl;
+    setTimeout(() => {
+      document.removeEventListener('visibilitychange', onHide);
+      if (!switched && !document.hidden) {
+        window.location.href = webUrl;
+      }
+    }, 1200);
+  };
+
   const handleNaverMap = () => {
-    window.open(
-      `https://map.naver.com/v5/search/${encodeURIComponent(venue.name)}`,
-      '_blank'
+    const name = encodeURIComponent(venue.name);
+    openMap(
+      `nmap://search?query=${name}&appname=hotoguries.github.io`,
+      `https://map.naver.com/v5/search/${name}`
     );
   };
-
-  const handleKakaoMap = () => {
-    window.open(
-      `https://map.kakao.com/link/map/${encodeURIComponent(venue.name)},${venue.lat},${venue.lng}`,
-      '_blank'
-    );
-  };
-
-  // API 키 없이 동작하는 임베드 지도 (클릭 시 정확한 위치 표시)
-  const embedSrc = `https://www.google.com/maps?q=${venue.lat},${venue.lng}&z=16&hl=ko&output=embed`;
 
   return (
     <section className="section location">
@@ -31,23 +43,18 @@ export default function Location({ venue }: LocationProps) {
       <p className="venue-hall">{venue.hall}</p>
       <p className="venue-address">{venue.address}</p>
 
-      <div className="map-embed">
-        <iframe
-          title={`${venue.name} 위치`}
-          src={embedSrc}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-      </div>
-
-      <div className="map-buttons">
-        <button onClick={handleNaverMap} className="map-button">
-          네이버 지도
-        </button>
-        <button onClick={handleKakaoMap} className="map-button">
-          카카오맵
-        </button>
-      </div>
+      <button type="button" className="map-image" onClick={handleNaverMap}>
+        {venue.mapImage ? (
+          <>
+            <img src={venue.mapImage} alt={`${venue.name} 위치 지도`} loading="lazy" />
+            <span className="map-image-overlay">
+              <span className="map-image-overlay-text">📍 네이버 지도에서 보기</span>
+            </span>
+          </>
+        ) : (
+          <span className="map-image-empty">📍 네이버 지도에서 위치 보기</span>
+        )}
+      </button>
 
       {venue.transport && (
         <div className="transport-info">
