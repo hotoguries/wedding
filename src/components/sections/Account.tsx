@@ -72,7 +72,7 @@ export default function Account({ accounts }: AccountProps) {
               return (
                 <div key={index} className="account-item">
                   <div className="account-info">
-                    <p className="account-relation">{account.relation}</p>
+                    <p className="account-relation">{account.relation} 계좌번호</p>
                     <p className="account-holder">{account.holder}</p>
                     <p className="account-number">
                       {account.bank} {account.accountNumber}
