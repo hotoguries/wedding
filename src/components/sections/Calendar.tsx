@@ -15,6 +15,14 @@ export default function Calendar({ date, time }: CalendarProps) {
   const firstDay = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month + 1, 0).getDate();
 
+  // D-day 계산 (자정 기준 일수 차)
+  const today = new Date();
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const weddingMidnight = new Date(year, month, day);
+  const dDay = Math.round(
+    (weddingMidnight.getTime() - todayMidnight.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
   const weeks = [];
   let week = new Array(firstDay).fill(null);
 
@@ -61,6 +69,22 @@ export default function Calendar({ date, time }: CalendarProps) {
             </div>
           ))}
         </div>
+      </div>
+      <div className="dday">
+        {dDay > 0 ? (
+          <p className="dday-text">
+            오승환 <span className="dday-heart">♥</span> 송병연의 결혼식이{' '}
+            <span className="dday-count">D-{dDay}</span>
+          </p>
+        ) : dDay === 0 ? (
+          <p className="dday-text">
+            오늘은 <span className="dday-count">결혼식 D-DAY</span> 입니다
+          </p>
+        ) : (
+          <p className="dday-text">
+            오승환 <span className="dday-heart">♥</span> 송병연, 행복하게 잘 살겠습니다
+          </p>
+        )}
       </div>
     </section>
   );

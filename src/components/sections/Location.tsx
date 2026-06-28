@@ -6,19 +6,23 @@ interface LocationProps {
 }
 
 export default function Location({ venue }: LocationProps) {
+  // 정확한 좌표로 지도 앱 열기 (주소 검색이 아닌 위치 핀)
   const handleNaverMap = () => {
     window.open(
-      `https://map.naver.com/v5/search/${encodeURIComponent(venue.address)}`,
+      `https://map.naver.com/v5/search/${encodeURIComponent(venue.name)}`,
       '_blank'
     );
   };
 
   const handleKakaoMap = () => {
     window.open(
-      `https://map.kakao.com/link/search/${encodeURIComponent(venue.address)}`,
+      `https://map.kakao.com/link/map/${encodeURIComponent(venue.name)},${venue.lat},${venue.lng}`,
       '_blank'
     );
   };
+
+  // API 키 없이 동작하는 임베드 지도 (클릭 시 정확한 위치 표시)
+  const embedSrc = `https://www.google.com/maps?q=${venue.lat},${venue.lng}&z=16&hl=ko&output=embed`;
 
   return (
     <section className="section location">
@@ -27,9 +31,13 @@ export default function Location({ venue }: LocationProps) {
       <p className="venue-hall">{venue.hall}</p>
       <p className="venue-address">{venue.address}</p>
 
-      <div className="map-placeholder">
-        <span>지도 영역</span>
-        <p className="map-hint">카카오맵 또는 네이버맵 API 연동</p>
+      <div className="map-embed">
+        <iframe
+          title={`${venue.name} 위치`}
+          src={embedSrc}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
       </div>
 
       <div className="map-buttons">

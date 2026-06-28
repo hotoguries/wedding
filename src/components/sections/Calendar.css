@@ -64,3 +64,26 @@
   background-color: var(--color-primary);
   border-radius: 50%;
 }
+
+.dday {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-secondary);
+}
+
+.dday-text {
+  font-size: 1rem;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.dday-heart {
+  color: var(--color-primary);
+}
+
+.dday-count {
+  display: inline-block;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}

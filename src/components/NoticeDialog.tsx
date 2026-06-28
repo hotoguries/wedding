@@ -4,25 +4,33 @@ import './NoticeDialog.css';
 
 interface NoticeDialogProps {
   notice: NoticeInfo;
+  onClose?: () => void;
 }
 
 const STORAGE_KEY = 'wedding-notice-seen';
 
-export default function NoticeDialog({ notice }: NoticeDialogProps) {
+export default function NoticeDialog({ notice, onClose }: NoticeDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (!notice.enabled) return;
+    if (!notice.enabled) {
+      onClose?.();
+      return;
+    }
 
     const hasSeen = localStorage.getItem(STORAGE_KEY);
     if (!hasSeen) {
       setIsOpen(true);
+    } else {
+      onClose?.();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notice.enabled]);
 
   const handleClose = () => {
     localStorage.setItem(STORAGE_KEY, 'true');
     setIsOpen(false);
+    onClose?.();
   };
 
   if (!isOpen) return null;

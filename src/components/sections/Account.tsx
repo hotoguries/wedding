@@ -8,9 +8,14 @@ interface AccountProps {
 
 export default function Account({ accounts }: AccountProps) {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
 
   const groomAccounts = accounts.filter((a) => a.relation.includes('신랑'));
   const brideAccounts = accounts.filter((a) => a.relation.includes('신부'));
+
+  const toggleGroup = (title: string) => {
+    setOpenGroups((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
 
   const handleCopy = async (account: AccountInfo, index: number) => {
     try {
@@ -22,9 +27,21 @@ export default function Account({ accounts }: AccountProps) {
     }
   };
 
-  const renderAccounts = (title: string, accounts: AccountInfo[], startIndex: number) => (
+  const renderAccounts = (title: string, accounts: AccountInfo[], startIndex: number) => {
+    const isOpen = !!openGroups[title];
+    return (
     <div className="account-group">
-      <h4 className="account-group-title">{title}</h4>
+      <button
+        type="button"
+        className={`account-group-toggle ${isOpen ? 'open' : ''}`}
+        onClick={() => toggleGroup(title)}
+        aria-expanded={isOpen}
+      >
+        <span className="account-group-title">{title}</span>
+        <span className="account-group-arrow" aria-hidden="true">▾</span>
+      </button>
+      {isOpen && (
+      <div className="account-group-body">
       {accounts.map((account, i) => {
         const index = startIndex + i;
         return (
@@ -45,8 +62,11 @@ export default function Account({ accounts }: AccountProps) {
           </div>
         );
       })}
+      </div>
+      )}
     </div>
-  );
+    );
+  };
 
   return (
     <section className="section account">
