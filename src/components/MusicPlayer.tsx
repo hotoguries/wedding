@@ -11,10 +11,18 @@ export default function MusicPlayer({ music }: MusicPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const autoStarted = useRef(false);
 
-  // 첫 사용자 클릭 때 1회만 자동 재생 (이후엔 재등록하지 않음)
+  // 로드 시 자동재생 시도 → 막히면(모바일 등) 첫 사용자 클릭 때 재생
   useEffect(() => {
     if (!music.enabled) return;
 
+    // 1) 즉시 자동재생 시도 (브라우저가 허용하면 바로 재생됨)
+    audioRef.current?.play().then(() => {
+      autoStarted.current = true;
+    }).catch(() => {
+      /* 자동재생 차단 → 아래 첫 클릭 폴백 사용 */
+    });
+
+    // 2) 자동재생이 막힌 경우, 첫 사용자 클릭 때 1회 재생
     const handleFirstInteraction = () => {
       document.removeEventListener('click', handleFirstInteraction);
       if (autoStarted.current || !audioRef.current) return;
