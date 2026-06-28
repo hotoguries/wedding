@@ -5,8 +5,11 @@ interface GalleryProps {
   images: string[];
 }
 
+const INITIAL_VISIBLE = 9; // 처음 보여줄 사진 수 (6으로 바꾸면 2줄)
+
 export default function Gallery({ images }: GalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState(false);
   const [dragX, setDragX] = useState(0);
   const startX = useRef<number | null>(null);
   const startY = useRef<number | null>(null);
@@ -88,16 +91,25 @@ export default function Gallery({ images }: GalleryProps) {
     <section className="section gallery">
       <p className="section-title">gallery</p>
       <div className="gallery-grid">
-        {images.map((src, index) => (
+        {(expanded ? images : images.slice(0, INITIAL_VISIBLE)).map((src, index) => (
           <div
             key={index}
             className="gallery-item"
             onClick={() => setSelectedIndex(index)}
           >
-            <img src={src} alt={`갤러리 이미지 ${index + 1}`} />
+            <img src={src} alt={`갤러리 이미지 ${index + 1}`} loading="lazy" />
           </div>
         ))}
       </div>
+
+      {images.length > INITIAL_VISIBLE && (
+        <button
+          className="gallery-more"
+          onClick={() => setExpanded((v) => !v)}
+        >
+          {expanded ? '접기' : `사진 더보기 (+${images.length - INITIAL_VISIBLE})`}
+        </button>
+      )}
 
       {selectedIndex !== null && (
         <div className="gallery-modal" onClick={() => setSelectedIndex(null)}>
