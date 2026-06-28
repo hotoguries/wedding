@@ -1,0 +1,45 @@
+.share-message {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: 24px;
+}
+
+.share-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.share-button {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 8px;
+  background-color: white;
+  color: var(--color-text);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.share-button:hover {
+  background-color: var(--color-background);
+  border-color: var(--color-primary);
+}
+
+.share-button.primary {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.share-button.primary:hover {
+  opacity: 0.9;
+  background-color: var(--color-primary);
+}
+
+.share-button.copied {
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
