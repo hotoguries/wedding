@@ -65,11 +65,12 @@ export const weddingData: WeddingInfo = {
   // 예식 1주일 전 Firebase Realtime DB의 /accounts 경로에 입력하면 런타임에 표시되고,
   // 예식 후 콘솔에서 삭제하면 사이트에서도 사라진다. (Account.tsx 참고)
   accounts: [],
+  // 기본은 꺼짐. 띄우고 싶을 때만 Firebase /notice 에 { "enabled": true, "title": "...", "message": "..." } 입력.
   notice: {
-    enabled: true,
+    enabled: false,
     title: '안내 말씀',
-    message: '결혼식 당일 축구 경기가 예정되어 있어\n예식장 주변 교통이 혼잡할 수 있습니다.\n여유있게 출발해 주시기 바랍니다.',
-    image: '', // 약도 이미지 경로 (예: '/images/map.jpg')
+    message: '',
+    image: '',
   },
   music: {
     enabled: true,
