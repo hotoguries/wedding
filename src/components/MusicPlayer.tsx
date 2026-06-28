@@ -9,43 +9,47 @@ interface MusicPlayerProps {
 export default function MusicPlayer({ music }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const autoStarted = useRef(false);
 
+  // 첫 사용자 클릭 때 1회만 자동 재생 (이후엔 재등록하지 않음)
   useEffect(() => {
     if (!music.enabled) return;
 
-    // 사용자 인터랙션 후 자동 재생 시도
     const handleFirstInteraction = () => {
-      if (audioRef.current && !isPlaying) {
-        audioRef.current.play().then(() => {
-          setIsPlaying(true);
-        }).catch(() => {
-          // 자동 재생 실패 시 무시
-        });
-      }
       document.removeEventListener('click', handleFirstInteraction);
+      if (autoStarted.current || !audioRef.current) return;
+      autoStarted.current = true;
+      audioRef.current.play().catch(() => {
+        /* 자동 재생 실패 시 무시 */
+      });
     };
 
     document.addEventListener('click', handleFirstInteraction);
     return () => document.removeEventListener('click', handleFirstInteraction);
-  }, [music.enabled, isPlaying]);
+  }, [music.enabled]);
 
   if (!music.enabled) return null;
 
   const togglePlay = () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
+    const audio = audioRef.current;
+    if (!audio) return;
+    autoStarted.current = true; // 사용자가 직접 제어 시작 → 자동재생 로직 무력화
+    if (audio.paused) {
+      audio.play().catch(() => {});
     } else {
-      audioRef.current.play();
-      setIsPlaying(true);
+      audio.pause();
     }
   };
 
   return (
     <div className="music-player">
-      <audio ref={audioRef} src={music.src} loop />
+      <audio
+        ref={audioRef}
+        src={music.src}
+        loop
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      />
       <button
         className={`music-button ${isPlaying ? 'playing' : ''}`}
         onClick={togglePlay}
