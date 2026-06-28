@@ -14,8 +14,8 @@ export default function Account({ accounts }: AccountProps) {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   // 기본으로 펼쳐진 상태 (버튼으로 접을 수도 있음)
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
-    신랑측: true,
-    신부측: true,
+    '신랑측 (계좌번호)': true,
+    '신부측 (계좌번호)': true,
   });
   const [remote, setRemote] = useState<AccountInfo[] | null>(null);
 
@@ -103,8 +103,8 @@ export default function Account({ accounts }: AccountProps) {
         </p>
       ) : (
         <>
-          {renderAccounts('신랑측', groomAccounts, 0)}
-          {renderAccounts('신부측', brideAccounts, groomAccounts.length)}
+          {renderAccounts('신랑측 (계좌번호)', groomAccounts, 0)}
+          {renderAccounts('신부측 (계좌번호)', brideAccounts, groomAccounts.length)}
         </>
       )}
     </section>
