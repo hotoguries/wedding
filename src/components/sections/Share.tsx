@@ -40,6 +40,9 @@ export default function Share() {
       <p className="share-message">소중한 분들에게 청첩장을 전해보세요</p>
       <div className="share-buttons">
         <button type="button" className="share-button primary" onClick={handleShare}>
+          <svg className="share-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.86 5.33 4.66 6.74-.2.73-.74 2.66-.85 3.07-.13.51.19.5.4.37.16-.11 2.62-1.78 3.7-2.5.69.1 1.39.15 2.09.15 5.52 0 10-3.58 10-8S17.52 3 12 3z" />
+          </svg>
           카카오톡으로 청첩장 전하기
         </button>
         <button
