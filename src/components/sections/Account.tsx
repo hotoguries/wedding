@@ -84,7 +84,6 @@ export default function Account({ accounts }: AccountProps) {
                   <div key={index} className="account-card">
                     <div className="account-card-top">
                       <div className="account-card-name">
-                        <span className="account-card-relation">{account.relation}</span>
                         <span className="account-card-holder">{account.holder}</span>
                       </div>
                       <span className="account-card-number">
