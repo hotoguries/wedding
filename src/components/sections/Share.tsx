@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import './Share.css';
 
 const SITE_URL = 'https://hotoguries.github.io/wedding/';
+const LOCATION_URL = 'https://hotoguries.github.io/wedding/#location';
 const OG_IMAGE = 'https://hotoguries.github.io/wedding/images/og.jpg';
-const SHARE_TITLE = '결혼식에 초대합니다';
+const SHARE_TITLE = '승환♥병연 결혼식에 초대합니다';
 const SHARE_TEXT = '소중한 분들을 결혼식에 초대합니다.';
+const CARD_DESC = '2026-10-17 토요일\n오후 16시 10분';
 const KAKAO_KEY = 'd4cefe88b4bd9ac7fdbd6b656cf5428b'; // 카카오 JavaScript 키 (도메인 제한됨)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,15 +59,19 @@ export default function Share() {
     if (!kakao.isInitialized()) kakao.init(KAKAO_KEY);
 
     const link = { mobileWebUrl: SITE_URL, webUrl: SITE_URL };
+    const locationLink = { mobileWebUrl: LOCATION_URL, webUrl: LOCATION_URL };
     kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
         title: SHARE_TITLE,
-        description: SHARE_TEXT,
+        description: CARD_DESC,
         imageUrl: OG_IMAGE,
         link,
       },
-      buttons: [{ title: '청첩장 보기', link }],
+      buttons: [
+        { title: '자세히 보기', link },
+        { title: '위치 보기', link: locationLink },
+      ],
     });
   };
 

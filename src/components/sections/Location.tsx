@@ -37,7 +37,7 @@ export default function Location({ venue }: LocationProps) {
   };
 
   return (
-    <section className="section location">
+    <section id="location" className="section location">
       <p className="section-title">location</p>
       <h3 className="venue-name">{venue.name}</h3>
       <p className="venue-hall">{venue.hall}</p>
