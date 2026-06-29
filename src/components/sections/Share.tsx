@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './Share.css';
 
 const SITE_URL = 'https://hotoguries.github.io/wedding/';
+const OG_IMAGE = 'https://hotoguries.github.io/wedding/images/og.jpg';
 const SHARE_TITLE = '결혼식에 초대합니다';
 const SHARE_TEXT = '소중한 분들을 결혼식에 초대합니다.';
 const KAKAO_KEY = 'd4cefe88b4bd9ac7fdbd6b656cf5428b'; // 카카오 JavaScript 키 (도메인 제한됨)
@@ -55,8 +56,17 @@ export default function Share() {
     }
     if (!kakao.isInitialized()) kakao.init(KAKAO_KEY);
 
-    // URL 스크랩 방식: 페이지의 OG 태그(썸네일+제목+링크)로 링크 미리보기 카드 전송
-    kakao.Share.sendScrap({ requestUrl: SITE_URL });
+    const link = { mobileWebUrl: SITE_URL, webUrl: SITE_URL };
+    kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: SHARE_TITLE,
+        description: SHARE_TEXT,
+        imageUrl: OG_IMAGE,
+        link,
+      },
+      buttons: [{ title: '청첩장 보기', link }],
+    });
   };
 
   return (
