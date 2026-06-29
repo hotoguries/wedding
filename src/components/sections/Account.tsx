@@ -35,7 +35,9 @@ export default function Account({ accounts }: AccountProps) {
 
   const handleCopy = async (account: AccountInfo, index: number) => {
     try {
-      await navigator.clipboard.writeText(account.accountNumber);
+      // 은행명 + 하이픈 제거한 계좌번호 형태로 복사 (예: "신한은행 110406761532")
+      const text = `${account.bank} ${account.accountNumber.replace(/-/g, '')}`;
+      await navigator.clipboard.writeText(text);
       setCopiedIndex(index);
       setTimeout(() => setCopiedIndex(null), 2000);
     } catch {
