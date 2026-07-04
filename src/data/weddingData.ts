@@ -58,6 +58,8 @@ export const weddingData: WeddingInfo = {
     '/wedding/images/gallery/g28.jpg',
     '/wedding/images/gallery/g29.jpg',
     '/wedding/images/gallery/g30.jpg',
+    '/wedding/images/gallery/g31.jpg',
+    '/wedding/images/gallery/g32.jpg',
   ],
   // 실제 계좌번호는 git 히스토리에 남기지 않기 위해 비워둔다.
   // Firebase Realtime DB의 /accounts 경로에 입력하면 런타임에 표시되고,
