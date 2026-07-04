@@ -15,7 +15,6 @@ export interface PersonInfo {
   name: string;
   father: string;
   mother: string;
-  phone: string;
 }
 
 export interface VenueInfo {
@@ -38,6 +37,7 @@ export interface AccountInfo {
   accountNumber: string;
   holder: string;
   relation: string;
+  kakaopayUrl?: string; // 카카오페이 송금 링크 (있을 때만 버튼 표시)
 }
 
 export interface NoticeInfo {

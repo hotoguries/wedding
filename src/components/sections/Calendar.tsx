@@ -20,7 +20,10 @@ function parseKoreanTime(time: string): { hour: number; minute: number } {
 }
 
 export default function Calendar({ date, time }: CalendarProps) {
-  const weddingDate = new Date(date);
+  // 'YYYY-MM-DD'를 new Date(문자열)로 파싱하면 UTC 기준이라 서쪽 타임존(미주 등)에서
+  // 하루 어긋난다. 로컬 타임존 기준으로 직접 생성해 어디서 열어도 같은 날짜가 보이게 한다.
+  const [y, m, d] = date.split('-').map(Number);
+  const weddingDate = new Date(y, m - 1, d);
   const year = weddingDate.getFullYear();
   const month = weddingDate.getMonth();
   const day = weddingDate.getDate();

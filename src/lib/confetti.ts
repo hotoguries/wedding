@@ -14,7 +14,7 @@ const COLORS = ['#bf4e1e', '#e8964a', '#f3c969', '#d96c4a', '#ffd9a0', '#ffffff'
 
 let canvas: HTMLCanvasElement | null = null;
 let ctx: CanvasRenderingContext2D | null = null;
-let particles: Particle[] = [];
+const particles: Particle[] = [];
 let rafId = 0;
 let dpr = 1;
 let w = 0;

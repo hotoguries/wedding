@@ -25,12 +25,17 @@
   aspect-ratio: 1;
   overflow: hidden;
   cursor: pointer;
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.3s ease;
 }
 
@@ -78,18 +83,20 @@
   touch-action: none;
   user-select: none;
   -webkit-user-drag: none;
+  /* iOS 롱프레스 '사진 저장' 콜아웃이 스와이프를 끊지 않게 */
+  -webkit-touch-callout: none;
 }
 
 .modal-close {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 36px;
-  height: 36px;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  right: 12px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.65);
   background: none;
   border: none;
   cursor: pointer;
@@ -97,15 +104,37 @@
 }
 
 .modal-close:hover {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .modal-counter {
   position: absolute;
-  bottom: 28px;
+  bottom: calc(28px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.8125rem;
   letter-spacing: 0.05em;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-hint {
+  position: absolute;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: hint-fade 1.8s ease forwards;
+}
+
+@keyframes hint-fade {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
 }

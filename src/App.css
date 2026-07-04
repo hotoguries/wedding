@@ -7,6 +7,20 @@
   border-bottom: 1px solid var(--color-secondary);
 }
 
+/* 스크롤 진입 시 페이드인 (모션 최소화 설정 시엔 비활성) */
+@media (prefers-reduced-motion: no-preference) {
+  .wedding-app .section {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .wedding-app .section.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .section:last-child {
   border-bottom: none;
 }

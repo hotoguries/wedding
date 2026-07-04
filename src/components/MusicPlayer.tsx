@@ -11,16 +11,25 @@ export default function MusicPlayer({ music }: MusicPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const autoStarted = useRef(false);
 
-  // 로드 시 자동재생 시도 → 막히면(모바일 등) 첫 사용자 클릭 때 재생
+  // 자동재생 시도 → 막히면(모바일 등) 첫 사용자 클릭 때 재생
   useEffect(() => {
     if (!music.enabled) return;
 
-    // 1) 즉시 자동재생 시도 (브라우저가 허용하면 바로 재생됨)
-    audioRef.current?.play().then(() => {
-      autoStarted.current = true;
-    }).catch(() => {
-      /* 자동재생 차단 → 아래 첫 클릭 폴백 사용 */
-    });
+    // 1) 자동재생 시도 — 단, 대문 사진·갤러리 등 초기 로딩과 4MB 오디오가
+    //    대역폭을 경쟁하지 않도록 페이지 로드 완료 후에 시작한다.
+    const tryAutoplay = () => {
+      if (autoStarted.current) return;
+      audioRef.current?.play().then(() => {
+        autoStarted.current = true;
+      }).catch(() => {
+        /* 자동재생 차단 → 아래 첫 클릭 폴백 사용 */
+      });
+    };
+    if (document.readyState === 'complete') {
+      tryAutoplay();
+    } else {
+      window.addEventListener('load', tryAutoplay, { once: true });
+    }
 
     // 2) 자동재생이 막힌 경우, 첫 사용자 클릭 때 1회 재생
     const handleFirstInteraction = () => {
@@ -33,7 +42,10 @@ export default function MusicPlayer({ music }: MusicPlayerProps) {
     };
 
     document.addEventListener('click', handleFirstInteraction);
-    return () => document.removeEventListener('click', handleFirstInteraction);
+    return () => {
+      window.removeEventListener('load', tryAutoplay);
+      document.removeEventListener('click', handleFirstInteraction);
+    };
   }, [music.enabled]);
 
   if (!music.enabled) return null;
@@ -54,6 +66,7 @@ export default function MusicPlayer({ music }: MusicPlayerProps) {
       <audio
         ref={audioRef}
         src={music.src}
+        preload="none"
         loop
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}

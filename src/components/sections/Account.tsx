@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { AccountInfo } from '../../types/wedding';
+import { DB_URL } from '../../lib/firebase';
 import './Account.css';
 
 interface AccountProps {
@@ -7,8 +8,7 @@ interface AccountProps {
 }
 
 // 실제 계좌번호는 git/소스에 남기지 않고 Firebase에서 런타임에 불러온다.
-const DB = 'https://wedding-guestbook-6c9e3-default-rtdb.asia-southeast1.firebasedatabase.app';
-const ACCOUNTS_URL = `${DB}/accounts.json`;
+const ACCOUNTS_URL = `${DB_URL}/accounts.json`;
 
 export default function Account({ accounts }: AccountProps) {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -102,6 +102,14 @@ export default function Account({ accounts }: AccountProps) {
                         <path d="M5 15V5a2 2 0 0 1 2-2h10" />
                       </svg>
                     </button>
+                    {account.kakaopayUrl && (
+                      <button
+                        className="kakaopay-button"
+                        onClick={() => window.open(account.kakaopayUrl, '_blank')}
+                      >
+                        카카오페이로 송금하기
+                      </button>
+                    )}
                   </div>
                 );
               })

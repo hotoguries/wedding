@@ -119,3 +119,21 @@
   height: 18px;
   flex-shrink: 0;
 }
+
+/* 카카오페이 송금 버튼 (kakaopayUrl이 있을 때만 표시) */
+.kakaopay-button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fee500;
+  color: #191919;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.kakaopay-button:hover {
+  opacity: 0.9;
+}

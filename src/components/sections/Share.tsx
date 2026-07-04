@@ -6,7 +6,7 @@ const LOCATION_URL = `https://map.naver.com/v5/search/${encodeURIComponent('월�
 const OG_IMAGE = 'https://hotoguries.github.io/wedding/images/og.jpg';
 const SHARE_TITLE = '승환♥병연 결혼식에 초대합니다';
 const SHARE_TEXT = '소중한 분들을 결혼식에 초대합니다.';
-const CARD_DESC = '2026-10-17 토요일\n오후 4시 20분';
+const CARD_DESC = '2026년 10월 17일 토요일\n오후 4시 20분';
 const KAKAO_KEY = 'd4cefe88b4bd9ac7fdbd6b656cf5428b'; // 카카오 JavaScript 키 (도메인 제한됨)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

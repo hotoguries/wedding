@@ -12,7 +12,7 @@ export default function Hero({ groomName, brideName, date, mainImage }: HeroProp
     <section className="hero">
       {mainImage ? (
         <div className="hero-image">
-          <img src={mainImage} alt="웨딩 사진" />
+          <img src={mainImage} alt="웨딩 사진" fetchPriority="high" />
         </div>
       ) : (
         <div className="hero-placeholder">

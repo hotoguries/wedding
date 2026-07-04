@@ -1,10 +1,14 @@
 :root {
+  /* 안드로이드 '자동 다크 테마'가 색을 임의 반전시키지 않도록 라이트 고정 */
+  color-scheme: light;
+
   /* 가을 노을/낙엽 테마 */
   --color-primary: #bf4e1e;
   --color-secondary: #f0c9a0;
   --color-background: #fff8f0;
   --color-text: #5c3d2e;
-  --color-text-light: #9e7b5d;
+  /* 보조 텍스트: 작은 글씨 가독성(대비 4.5:1 이상)을 위해 한 단계 어둡게 */
+  --color-text-light: #8a684c;
   --color-accent: #e67e22;
   --font-serif: 'Noto Serif KR', serif;
 

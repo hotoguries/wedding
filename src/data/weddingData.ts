@@ -6,13 +6,11 @@ export const weddingData: WeddingInfo = {
     name: '오승환',
     father: '오덕석',
     mother: '양정숙',
-    phone: '010-1234-5678',
   },
   bride: {
     name: '송병연',
     father: '故 송창윤',
     mother: '박찬선',
-    phone: '010-8765-4321',
   },
   date: '2026-10-17',
   time: '오후 4시 20분',
@@ -61,16 +59,11 @@ export const weddingData: WeddingInfo = {
     '/wedding/images/gallery/g29.jpg',
     '/wedding/images/gallery/g30.jpg',
   ],
-  // ⚠️ 아래는 폼 미리보기용 임시 가짜 데이터(실계좌 아님).
-  // 실제 계좌번호는 git에 남기지 않도록, 예식 전 Firebase /accounts 에 입력하면 런타임에 덮어쓴다.
-  // 미리보기가 끝나면 이 배열을 다시 [] 로 비울 것. (Account.tsx 참고)
-  accounts: [
-    { relation: '신랑', holder: '홍길동', bank: '○○은행', accountNumber: '000-0000-0000-00' },
-    { relation: '신랑 아버지', holder: '홍판서', bank: '○○은행', accountNumber: '000-0000-0000-00' },
-    { relation: '신랑 어머니', holder: '춘섬', bank: '○○은행', accountNumber: '000-0000-0000-00' },
-    { relation: '신부', holder: '성춘향', bank: '○○은행', accountNumber: '000-0000-0000-00' },
-    { relation: '신부 어머니', holder: '월매', bank: '○○은행', accountNumber: '000-0000-0000-00' },
-  ],
+  // 실제 계좌번호는 git 히스토리에 남기지 않기 위해 비워둔다.
+  // Firebase Realtime DB의 /accounts 경로에 입력하면 런타임에 표시되고,
+  // 예식 후 콘솔에서 삭제하면 사이트에서도 사라진다. (Account.tsx 참고)
+  // 각 항목에 kakaopayUrl을 넣으면 '카카오페이로 송금하기' 버튼이 함께 표시된다.
+  accounts: [],
   // 기본은 꺼짐. 띄우고 싶을 때만 Firebase /notice 에 { "enabled": true, "title": "...", "message": "..." } 입력.
   notice: {
     enabled: false,
