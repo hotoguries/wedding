@@ -19,7 +19,11 @@ export default function NoticeDialog({ notice, onClose }: NoticeDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const storageKey = storageKeyFor(notice);
   // Firebase 콘솔에서 "\\n"이 문자 그대로 저장된 경우도 줄바꿈으로 표시한다.
-  const messageLines = notice.message.replace(/\\n/g, '\n').split(/\r?\n/);
+  const messageLines = notice.message
+    .replace(/\\n/g, '\n')
+    .split(/\r?\n/)
+    .map((line) => line.replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
 
   useEffect(() => {
     if (!notice.enabled) {
@@ -50,10 +54,7 @@ export default function NoticeDialog({ notice, onClose }: NoticeDialogProps) {
         <h2 className="notice-title">{notice.title}</h2>
         <p className="notice-message">
           {messageLines.map((line, i) => (
-            <span key={i}>
-              {line}
-              {i < messageLines.length - 1 && <br />}
-            </span>
+            <span className="notice-message-line" key={i}>{line}</span>
           ))}
         </p>
         {notice.image && (
